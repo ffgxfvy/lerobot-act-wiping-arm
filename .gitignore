@@ -1,0 +1,44 @@
+# ---- 视频（走 B 站/YouTube 外链，不提交）----
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+
+# ---- 模型权重（用 Hugging Face Hub 或 Release 分发）----
+*.pth
+*.safetensors
+*.ckpt
+*.bin
+
+# ---- 数据集 ----
+data/
+datasets/
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# ---- 参赛材料（含个人信息，不公开）----
+报名表*
+查新报告*
+*告知书*
+缴费凭证*
+*录用通知*
+
+# ---- 文档 / Office ----
+*.docx
+*.doc
+*.pptx
+*.xlsx
+*.xls
+
+# ---- Python ----
+__pycache__/
+*.pyc
+
+# ---- 系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
