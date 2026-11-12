@@ -19,7 +19,7 @@ lerobot-record --config_path deploy_task.yaml
 二、 模型与硬件挂载规范
 在实机推理时，底层逻辑依然是“录制数据集”，因此对模型路径和硬件参数的挂载要求极度严格 。
 模型路径避雷：启动指令中的路径不能只指向外层，必须精准指向包含 config.json 和 .safetensors 的最深层文件夹（如 .../pretrained_model），否则系统会因找不到特征而报 ValueError 。
-标定文件挂载：将记录了电机物理极限的标定文件（如 my_follower.json）放入 D:\Project\huggingface_cache\lerobot\calibration\robots\so101_follower\ 。使用 --robot.id=my_follower 挂载即可完美跳过手动示教环节 。
+标定文件挂载：将记录了电机物理极限的标定文件（如 `my_follower.json`）放入 `${HF_LEROBOT_HOME}/calibration/robots/so101_follower/`（Windows 下默认在 `%USERPROFILE%\.cache\huggingface\lerobot\calibration\robots\so101_follower\`）。使用 `--robot.id=my_follower` 挂载即可跳过重复手动示教环节。
 感官配置注入：放弃外部 .yaml 传参，采用字典内联写法直接在命令行中声明双摄像头参数 。
 
 三、 启动指令与语法铁律
@@ -33,7 +33,7 @@ LeRobot v0.4 的底层解析器 draccus 对语法极其敏感，以下是必须�
 添加 --dataset.episode_time_s=120 与 --dataset.num_episodes=1 以打破默认的 60 秒上限，并确保单次任务优雅退出，防止重置死循环 。
 指令模板 ：
 DOS
-lerobot-record --robot.type=so101_follower --robot.id=my_follower --robot.port=COM7 --robot.cameras="{cam_high: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}, cam_wrist: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}}" --policy.type=act --policy.pretrained_path=outputs\model_act01\100000\pretrained_model --dataset.repo_id=my_eval/eval_test_04 --dataset.single_task="wipe the board" --dataset.push_to_hub=false --policy.device=cuda --dataset.episode_time_s=120 --dataset.num_episodes=1 --display_data=true
+lerobot-record --robot.type=so101_follower --robot.id=my_follower --robot.port=${FOLLOWER_PORT} --robot.cameras="{cam_high: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}, cam_wrist: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}}" --policy.type=act --policy.pretrained_path=outputs/model_act01/100000/pretrained_model --dataset.repo_id=my_eval/eval_test_04 --dataset.single_task="wipe the board" --dataset.push_to_hub=false --policy.device=cuda --dataset.episode_time_s=120 --dataset.num_episodes=1 --display_data=true
 
 四、 物理安全与进阶迭代
 物理防线：预训练模型对视角敏感，回车运行前，操作者的手必须停留在急停开关或电源处，遇轨迹漂移需在 1 秒内断电 。

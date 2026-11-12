@@ -1,0 +1,38 @@
+# SO-101 主从遥操作示教采集配置（脱敏模板）
+# 使用方法:
+#   先在终端导出环境变量或直接替换占位符，再执行：
+#   lerobot-record --config_path scripts/record_task.yaml
+
+robot:
+  type: so101_follower
+  port: "${FOLLOWER_PORT}"
+  id: "${FOLLOWER_ID}"
+  disable_torque_on_disconnect: true
+  cameras:
+    cam_high:
+      type: opencv
+      index_or_path: 2
+      width: 640
+      height: 480
+      fps: 30
+    cam_wrist:
+      type: opencv
+      index_or_path: 0
+      width: 640
+      height: 480
+      fps: 30
+
+teleop:
+  type: so101_leader
+  port: "${LEADER_PORT}"
+  id: "${LEADER_ID}"
+
+dataset:
+  repo_id: "${HF_USER}/so101_wiping_dataset"
+  single_task: "Pick up the sponge, locate the industrial meter, inspect stain, wipe clean, and reset"
+  fps: 30
+  episode_time_s: 40
+  num_episodes: 30
+  push_to_hub: false
+
+display_data: true

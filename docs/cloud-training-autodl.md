@@ -54,16 +54,16 @@ mv dataset_03 /root/autodl-tmp/huggingface/lerobot/user/
 指定数据集位置：
 export HF_HOME=/root/autodl-tmp/huggingface
 合并数据集：
-export HF_LEROBOT_HOME=/root/autodl-tmp/huggingface/lerobot &amp;&amp; export HF_HUB_OFFLINE=1 &amp;&amp; lerobot-edit-dataset --repo_id user/dataset_three_added_04 --operation.type merge --operation.repo_ids "['user/dataset_three_added_02', 'user/dataset_three_add_04']" --push_to_hub false
+export HF_LEROBOT_HOME=/root/autodl-tmp/huggingface/lerobot && export HF_HUB_OFFLINE=1 && lerobot-edit-dataset --repo_id user/dataset_three_added_04 --operation.type merge --operation.repo_ids "['user/dataset_three_added_02', 'user/dataset_three_add_04']" --push_to_hub false
 预模型训练：
-cd /root/autodl-tmp/lerobot &amp;&amp; export HF_LEROBOT_HOME=/root/autodl-tmp/huggingface/lerobot &amp;&amp; export HF_HUB_OFFLINE=1 &amp;&amp; unset OMP_NUM_THREADS &amp;&amp; lerobot-train --dataset.repo_id=user/dataset_three_added_04 --policy.path=/root/autodl-tmp/lerobot/outputs/train/act_three_added_02/checkpoints/020000/pretrained_model --output_dir=/root/autodl-tmp/lerobot/outputs/train/act_three_added_04 --job_name=act_three_added_04 --batch_size=16 --steps=20000 --save_freq=5000 --log_freq=100 --policy.device=cuda --wandb.enable=false
+cd /root/autodl-tmp/lerobot && export HF_LEROBOT_HOME=/root/autodl-tmp/huggingface/lerobot && export HF_HUB_OFFLINE=1 && unset OMP_NUM_THREADS && lerobot-train --dataset.repo_id=user/dataset_three_added_04 --policy.path=/root/autodl-tmp/lerobot/outputs/train/act_three_added_02/checkpoints/020000/pretrained_model --output_dir=/root/autodl-tmp/lerobot/outputs/train/act_three_added_04 --job_name=act_three_added_04 --batch_size=16 --steps=20000 --save_freq=5000 --log_freq=100 --policy.device=cuda --wandb.enable=false
 第四阶段：终极点火与监控
 回到代码大本营：
 Bash
 cd /root/autodl-tmp/lerobot
 执行训练指令：
 Bash
-export HF_HOME=/root/autodl-tmp/huggingface &amp;&amp; export HF_HUB_OFFLINE=1 &amp;&amp; lerobot-train --dataset.repo_id=user/dataset_three_new --policy.type=act --output_dir=outputs/train/act_three_new --job_name=act_three_new --policy.device=cuda --batch_size=16 --steps=100000 --policy.push_to_hub=false --wandb.enable=false
+export HF_HOME=/root/autodl-tmp/huggingface && export HF_HUB_OFFLINE=1 && lerobot-train --dataset.repo_id=user/dataset_three_new --policy.type=act --output_dir=outputs/train/act_three_new --job_name=act_three_new --policy.device=cuda --batch_size=16 --steps=100000 --policy.push_to_hub=false --wandb.enable=false
 挂机与验收： 看到 Loss 值开始下降后，保持实例运行。训练中途（如 2 万步时）或彻底结束后，前往 /root/autodl-tmp/lerobot/outputs/train/act_so101_test/checkpoints/ 目录下下载对应的模型权重文件至本地。
 到保存权重的文件夹中：
 cd /root/autodl-tmp/lerobot/outputs/train/

@@ -2,7 +2,7 @@
 
 > 记录 SO-101 主从机械臂的完整搭建过程：环境安装、端口识别、标定、遥操作、相机配置、示教数据采集与 ACT 模型训练。
 >
-> 本文由 Word 文档自动提取转换，**公式与图片未嵌入**，保留原文结构与图注文字。
+> 说明：文中的串口号（如 `COM3`/`COM7`/`COM8`）与机械臂硬件 ID（如 `my_follower`）均为开发机示例值；标准化脱敏配置见 [`../scripts/record_task.yaml`](../scripts/record_task.yaml)（使用 `${FOLLOWER_PORT}` 等环境变量）。
 
 ---
 
@@ -75,34 +75,34 @@ Ai给的录制指令：
 lerobot-record --config record_task.yaml
 record_task.yaml内容：
 robot:
-  type: so101_follower
-  port: COM7
-  id: my_follower
-  cameras:
-    cam_high:
-      type: opencv
-      index_or_path: 1
-      width: 640
-      height: 480
-      fps: 30
-    cam_wrist:
-      type: opencv
-      index_or_path: 2
-      width: 640
-      height: 480
-      fps: 30
+  type: so101_follower
+  port: COM7
+  id: my_follower
+  cameras:
+    cam_high:
+      type: opencv
+      index_or_path: 1
+      width: 640
+      height: 480
+      fps: 30
+    cam_wrist:
+      type: opencv
+      index_or_path: 2
+      width: 640
+      height: 480
+      fps: 30
 
 teleop:
-  type: so101_leader
-  port: COM8
-  id: my_leader
+  type: so101_leader
+  port: COM8
+  id: my_leader
 
 dataset:
-  repo_id: user/my_first_dataset
-  single_task: "Pick up the object and move it to the right"
-  fps: 30
-  episode_time_s: 40
-  push_to_hub: false
+  repo_id: user/my_first_dataset
+  single_task: "Pick up the object and move it to the right"
+  fps: 30
+  episode_time_s: 40
+  push_to_hub: false
 
 display_data: true
 
